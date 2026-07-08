@@ -2,30 +2,42 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# 1. Page Configuration
+# 1. Premium Page Configuration & Custom CSS Injection for Padding
 st.set_page_config(
-    page_title="The Indian Nobel Footprint | Executive Dashboard", 
+    page_title="The Indian Nobel Footprint | Editorial Workspace", 
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Signature Economist Red Top Bar
-st.markdown("<div style='background-color: #E5233D; height: 6px; margin-bottom: 25px;'></div>", unsafe_allow_html=True)
+# Injecting clean whitespace adjustments via custom CSS to make columns breathe
+st.markdown("""
+    <style>
+    .block-container { padding-top: 2rem; padding-bottom: 5rem; }
+    h1 { font-weight: 800; letter-spacing: -0.025em; }
+    h2 { font-weight: 700; letter-spacing: -0.02em; margin-top: 2rem; }
+    div[data-testid="stMetric"] { background-color: #F8FAFC; padding: 15px; border-radius: 10px; border: 1px solid #E2E8F0; }
+    </style>
+    """, unsafe_allow_html=True)
 
-# Main Title block with integrated flag iconography
-st.title("🇮🇳 Executive Record: India’s Nobel Laureates")
+# Signature Economist Red Top Bar
+st.markdown("<div style='background-color: #E5233D; height: 6px; margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+
+# Master Header Area (Spacious & Clean)
+st.title("🇮🇳 The Indian Nobel Footprint")
 st.markdown(
     """
-    An editorial and analytical study exploring the historical timeline, field distributions, and citizenship 
-    pivots of Nobel winners from the Indian subcontinent. *Data scaled from 1913 to modern metrics.*
-    """
+    <p style='font-size: 1.2rem; color: #475569; max-width: 900px; line-height: 1.6;'>
+    An editorial exploration mapping the historical timelines, research fields, and shifting citizenship 
+    dynamics of Nobel Laureates from the Indian subcontinent and its global diaspora.
+    </p>
+    """, unsafe_allow_html=True
 )
-st.markdown("---")
+st.write("") # Whitespace buffer
 
 # 2. Secure Data Loading
 df = pd.read_excel("nobel_data.xlsx")
 
-# Stable Public Domain Profile Image Repository (Wikimedia Ecosystem)
+# Asset Repositories
 photos = {
     "Rabindranath Tagore": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Rabindranath_Tagore_in_1909.jpg/400px-Rabindranath_Tagore_in_1909.jpg",
     "C. V. Raman": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Sir_CV_Raman.JPG/400px-Sir_CV_Raman.JPG",
@@ -39,41 +51,54 @@ photos = {
     "Abhijit Banerjee": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Abhijit_Banerjee_at_MIT.jpg/400px-Abhijit_Banerjee_at_MIT.jpg"
 }
 
-# Detailed descriptions for the Hero Card
 biographies = {
-    "Rabindranath Tagore": "The first non-European laureate in Literature. Awarded for his profoundly sensitive, fresh, and beautiful verse in Gitanjali, establishing Indian literary traditions globally.",
-    "C. V. Raman": "Awarded for his groundbreaking work on the scattering of light and the discovery of the Raman Effect, single-handedly placing India on the map of modern quantum physics.",
-    "Har Gobind Khorana": "Awarded for his interpretation of the genetic code and its function in protein synthesis, laying the absolute groundwork for modern biotechnology.",
-    "Mother Teresa": "Recognized for her work in bringing help to suffering humanity, founding the Missionaries of Charity in Kolkata and pioneering international humanitarian relief.",
-    "Subrahmanyan Chandrasekhar": "Awarded for his theoretical studies of the physical processes of importance to the structure and evolution of stars, giving birth to the Chandrasekhar Limit.",
-    "Amartya Sen": "Awarded for his deep contributions to welfare economics and social choice theory, changing how the United Nations and global bodies perceive poverty indices.",
-    "V. S. Naipaul": "Awarded for having united perceptive narrative and incorruptible scrutiny in works that compel us to see the presence of suppressed histories.",
-    "Venkatraman Ramakrishnan": "Awarded for his high-resolution structural mapping of the ribosome, fundamentally transforming the development of modern broad-spectrum antibiotics.",
-    "Kailash Satyarthi": "Awarded for his struggle against the suppression of children and young people, saving over 80,000 children from forced labor and advocating universal education.",
-    "Abhijit Banerjee": "Awarded for his experimental approach to alleviating global poverty, pioneering the use of randomized controlled trials (RCTs) in development economics."
+    "Rabindranath Tagore": "The first non-European laureate in Literature (1913). Awarded for his profoundly sensitive, fresh, and beautiful verse in Gitanjali, establishing Indian literary traditions on the global stage.",
+    "C. V. Raman": "Awarded for his groundbreaking work on the scattering of light and the discovery of the Raman Effect (1930), single-handedly placing India on the map of modern quantum physics.",
+    "Har Gobind Khorana": "Awarded for his interpretation of the genetic code and its function in protein synthesis (1968), laying the absolute groundwork for modern biochemistry and gene synthesis.",
+    "Mother Teresa": "Recognized for her work in bringing help to suffering humanity (1979), founding the Missionaries of Charity in Kolkata and establishing a legacy of global humanitarian service.",
+    "Subrahmanyan Chandrasekhar": "Awarded for his theoretical studies of the physical processes of importance to the structure and evolution of stars (1983), defining the astrophysical 'Chandrasekhar Limit'.",
+    "Amartya Sen": "Awarded for his deep contributions to welfare economics and social choice theory (1998), structurally changing how global institutions define and measure poverty indices.",
+    "V. S. Naipaul": "Awarded for having united perceptive narrative and incorruptible scrutiny in works that compel us to see the presence of suppressed histories across post-colonial landscapes (2001).",
+    "Venkatraman Ramakrishnan": "Awarded for his high-resolution structural mapping of the ribosome (2009), fundamentally transforming the development of modern broad-spectrum antibiotics.",
+    "Kailash Satyarthi": "Awarded for his active global struggle against the suppression of children and young people (2014), liberating over 80,000 children from institutionalized forced labor.",
+    "Abhijit Banerjee": "Awarded for his experimental approach to alleviating global poverty (2019), pioneering the use of randomized controlled trials (RCTs) in development economics theories."
 }
 
 
 # ====================================================================
-# ROW 1: CARD 1 & CARD 2 (VISUALIZATIONS WITH COMMENTARY)
+# SECTION 1: EXECUTIVE BREAKDOWN (METRICS + COHORT BALANCE)
 # ====================================================================
-col_vis1, col_vis2 = st.columns([1, 1], gap="large")
+st.header("📌 Executive Summary & Cohort Balance")
+st.write("") 
 
-with col_vis1:
-    st.subheader("📊 Card 1: Cohort Distribution Balance")
-    
-    # Process summary metrics for Card 1
+# We build a 4-column layout to let the baseline statistics sit cleanly next to the Bar Balance chart
+kpi_col1, kpi_col2, kpi_col3, chart_col1 = st.columns([1, 1, 1, 2], gap="large")
+
+with kpi_col1:
+    st.metric(label="Total Laureates", value=len(df))
+    st.caption("Complete volume of recognized historical individuals.")
+
+with kpi_col2:
+    st.metric(label="Distinct Academic Fields", value=df['Field'].nunique())
+    st.caption("Distribution across Science, Literature, Economics, & Peace.")
+
+with kpi_col3:
+    st.metric(label="Historical Timeline Scale", value="1913 — 2019")
+    st.caption("Century-scale tracking of regional and diaspora output.")
+
+with chart_col1:
+    # Card 1 processing
     total_w = len(df)
     citizen_w = len(df[df['Category'] == 'Citizen'])
     diaspora_w = len(df[df['Category'] == 'Origin'])
     
     summary_df = pd.DataFrame({
-        'Group': ['🇮🇳 Total Volume', '🏡 Citizens', '🗺️ Diaspora'],
-        'Count': [total_w, citizen_w, diaspora_w],
-        'ColorGroup': ['Total', 'Citizen', 'Diaspora']
+        'Group': ['🇮🇳 Indian Citizens  ', '🗺️ Overseas Diaspora  '],
+        'Count': [citizen_w, diaspora_w],
+        'ColorGroup': ['Citizen', 'Diaspora']
     })
     
-    # Pastel Bar Chart
+    # Beautiful, spacious horizontal pastel bar
     fig1 = px.bar(
         summary_df, 
         x='Count', 
@@ -81,11 +106,7 @@ with col_vis1:
         orientation='h', 
         text='Count',
         color='ColorGroup',
-        color_discrete_map={
-            'Total': '#B3CDE3',      # Pastel Ice Blue
-            'Citizen': '#CCEBC5',    # Pastel Soft Green
-            'Diaspora': '#FBB4AE'    # Pastel Muted Rose
-        }
+        color_discrete_map={'Citizen': '#CCEBC5', 'Diaspora': '#FBB4AE'} # Crisp pastels
     )
     fig1.update_layout(
         plot_bgcolor='white', 
@@ -93,148 +114,170 @@ with col_vis1:
         xaxis_showgrid=False, 
         xaxis_visible=False, 
         yaxis_title=None,
-        height=250, 
-        margin=dict(l=10, r=10, t=10, b=10)
+        height=140, 
+        margin=dict(l=10, r=30, t=5, b=5)
     )
-    st.plotly_chart(fig1, use_container_width=True)
-    
-    st.info(
-        f"**Editorial Gist:** Out of {total_w} total historical winners, the distribution is "
-        f"split almost evenly down the middle: **{citizen_w} stayed domestic** holding Indian passports, "
-        f"while **{diaspora_w} found breakthroughs abroad**. This showcases a dual track of intellectual output."
-    )
+    fig1.update_traces(textposition='outside', font=dict(size=14, currentcolor='black'))
+    st.plotly_chart(fig1, use_container_width=True, config={'displayModeBar': False})
 
-with col_vis2:
-    st.subheader("🗓️ Card 2: Field & Chronological Grid Matrix")
-    
-    # Scatter plot mapping: Y=Year, X=Field, Text=Icons only
-    fig2 = px.scatter(
-        df, 
-        x='Field', 
-        y='Year', 
-        text='Icon',
-        hover_name='Name',
-        custom_data=['Flag', 'Category']
-    )
-    
-    # Inject large emoji text markers instead of standard points
-    fig2.update_traces(
-        mode='text',
-        textfont=dict(size=26),
-        hovertemplate="<b>%{hovertext}</b><br>📅 Year: %{y}<br>🏛️ Field: %{x}<br>📍 Status: %{customdata[0]} %{customdata[1]}<extra></extra>"
-    )
-    
-    # Pastel styling for the coordinate grid
-    fig2.update_layout(
-        plot_bgcolor='#F9F9F9',
-        xaxis_showgrid=True,
-        xaxis_gridcolor='#EAEAEA',
-        yaxis_showgrid=True,
-        yaxis_gridcolor='#EAEAEA',
-        yaxis=dict(tickvals=[1913, 1930, 1968, 1979, 1983, 1998, 2001, 2009, 2014, 2019]),
-        height=250,
-        margin=dict(l=10, r=10, t=10, b=10),
-        xaxis_title=None,
-        yaxis_title=None
-    )
-    st.plotly_chart(fig2, use_container_width=True)
-    
-    st.warning(
-        "**Reader Fact:** This matrix isolates history by category. Notice the heavy concentration "
-        "in *Physics 🔬* and *Economics 📊*. Hover over any individual icon inside the grid above to view "
-        "their historical name and citizenship timeline."
-    )
+# Section 1 Gist Callout Box
+st.info(
+    f"**Editorial Gist:** The data uncovers a perfectly balanced dual-track output. "
+    f"Exactly **{citizen_w} laureates are domestic citizens** who achieved breakthroughs holding Indian passports, "
+    f"balanced by **{diaspora_w} global diaspora scholars** who scaled international research systems. "
+    "This highlights a balanced distribution between localized institutional output and global talent migration."
+)
 
+st.write("")
 st.markdown("---")
+st.write("")
+
 
 # ====================================================================
-# ROW 2: THE HERO CARD (IN-DEPTH BIO CONTAINER WITH PORTRAITS)
+# SECTION 2: THE MAIN HISTORICAL MATRIX (FULL SCREEN ROOM TO BREATHE)
 # ====================================================================
-st.subheader("🌟 Card 4: The Hero Deep-Dive Canvas")
-st.write("Select any laureate from the master selector below to retrieve their official visual profile and file records.")
+st.header("🗓️ The Chronological & Academic Field Matrix")
+st.markdown(
+    "A wide-canvas timeline positioning every award. The horizontal layout provides full "
+    "spacious clarity to trace the historical spaces between breakthroughs across different centuries."
+)
+st.write("")
 
-selected_hero = st.selectbox("Choose a Laureate to inspect:", df['Name'].unique())
+# Giving the graph full edge-to-edge layout block space (Height boosted to 480px for luxury spacing)
+fig2 = px.scatter(
+    df, 
+    x='Field', 
+    y='Year', 
+    text='Icon',
+    hover_name='Name',
+    custom_data=['Flag', 'Category', 'Year']
+)
+fig2.update_traces(
+    mode='text',
+    textfont=dict(size=32), # Bold expansive icons
+    hovertemplate="<b>%{hovertext}</b><br>📅 Award Year: %{customdata[2]}<br>🏛️ Field: %{x}<br>📍 Status: %{customdata[0]} %{customdata[1]}<extra></extra>"
+)
+fig2.update_layout(
+    plot_bgcolor='#F8FAFC', # High-end off-white slate background
+    xaxis_showgrid=True,
+    xaxis_gridcolor='#E2E8F0',
+    yaxis_showgrid=True,
+    yaxis_gridcolor='#E2E8F0',
+    yaxis=dict(
+        tickvals=[1913, 1930, 1968, 1979, 1983, 1998, 2001, 2009, 2014, 2019],
+        tickfont=dict(size=13, color='#475569'),
+        range=[1900, 2030] # Expansive bounds so markers don't clip the edges
+    ),
+    xaxis=dict(
+        tickfont=dict(size=14, color='#1E293B', bold=True),
+        side='top' # Place labels at the top like premium data dashboards
+    ),
+    height=480,
+    margin=dict(l=60, r=60, t=40, b=20)
+)
+st.plotly_chart(fig2, use_container_width=True)
+
+st.warning(
+    "**Visual Insight:** Notice the steep 'innovation drought' between C.V. Raman (1930) and Har Gobind Khorana (1968), "
+    "contrasted against the modern acceleration from 1998 onward. Hover over any floating icon marker to immediately isolate "
+    "the individual's passport classification and name context."
+)
+
+st.write("")
+st.markdown("---")
+st.write("")
+
+
+# ====================================================================
+# SECTION 3: HERO DEEP-DIVE CANVAS (CLEAN INTERACTIVE ROW)
+# ====================================================================
+st.header("🌟 The Interactive Profile Inspector")
+st.write("Isolate an individual laureate from the editorial register to pull their verified historical records and media files.")
+st.write("")
+
+selected_hero = st.selectbox("Select a Laureate to inspect:", df['Name'].unique(), label_visibility="collapsed")
 hero_data = df[df['Name'] == selected_hero].iloc[0]
 
-# Split Hero Card into picture column and data card column
+st.write("")
+
+# Spacious Hero Card Container Block
 with st.container(border=True):
     img_col, info_col = st.columns([1, 2], gap="large")
     
     with img_col:
-        # Load profile picture with error fallback protection
         img_url = photos.get(selected_hero)
         if img_url:
-            st.image(img_url, use_container_width=True, caption=f"Official Portrait: {hero_data['Name']}")
-        else:
-            st.info("📷 Profile photo canvas unreached.")
+            st.image(img_url, use_container_width=True)
             
     with info_col:
-        st.markdown(f"## {hero_data['Name']} {hero_data['Icon']}")
-        st.markdown(f"#### Passport Status: {hero_data['Flag']} {hero_data['Category']} ({'India 🇮🇳' if hero_data['Category'] == 'Citizen' else 'International Base'})")
-        st.markdown("---")
+        st.markdown(f"<h2 style='margin-top:0px;'>{hero_data['Name']} {hero_data['Icon']}</h2>", unsafe_allow_html=True)
+        st.markdown(f"**Official Classification:** {hero_data['Flag']} {hero_data['Category']} Passport Stream")
+        st.markdown("<div style='background-color: #E2E8F0; height: 1px; margin: 15px 0;'></div>", unsafe_allow_html=True)
         
-        # Grid layout for core metrics
-        meta_1, meta_2, meta_3 = st.columns(3)
-        meta_1.metric(label="🏅 Award Year", value=int(hero_data['Year']))
-        meta_2.metric(label="🏛️ Intellectual Field", value=hero_data['Field'])
-        meta_3.metric(label="🌍 Origin Marker", value=f"{hero_data['Flag']} Destination")
-        
-        st.markdown("---")
-        st.markdown("**📜 Comprehensive Historical Account:**")
-        st.write(biographies.get(selected_hero, "Exceptional record verified within global annals."))
+        # Micro metric grids with crisp spatial grouping
+        hm1, hm2, hm3 = st.columns(3)
+        with hm1:
+            st.markdown(f"<p style='color:#64748B; font-size:0.9rem; margin-bottom:2px;'>🏅 Year of Award</p><h3 style='margin-top:0px; color:#0F172A;'>{int(hero_data['Year'])}</h3>", unsafe_allow_html=True)
+        with hm2:
+            st.markdown(f"<p style='color:#64748B; font-size:0.9rem; margin-bottom:2px;'>🏛️ Intellectual Field</p><h3 style='margin-top:0px; color:#0F172A;'>{hero_data['Field']}</h3>", unsafe_allow_html=True)
+        with hm3:
+            st.markdown(f"<p style='color:#64748B; font-size:0.9rem; margin-bottom:2px;'>🌍 Regional Base</p><h3 style='margin-top:0px; color:#0F172A;'>{hero_data['Flag']} Verified</h3>", unsafe_allow_html=True)
+            
+        st.markdown("<div style='background-color: #E2E8F0; height: 1px; margin: 15px 0;'></div>", unsafe_allow_html=True)
+        st.markdown("**📜 Verified Historical Significance & Citations:**")
+        st.markdown(f"<p style='font-size:1.1rem; line-height:1.6; color:#334155;'>{biographies.get(selected_hero)}</p>", unsafe_allow_html=True)
 
+st.write("")
 st.markdown("---")
+st.write("")
+
 
 # ====================================================================
-# ROW 3: CARD 5 & CARD 6 (COHORT BREAKDOWNS)
+# SECTION 4: COHORT PROFILES (CLEAN SIDE-BY-SIDE LEDGERS)
 # ====================================================================
+st.header("🌍 Comparative Jurisdictional Records")
+st.write("A structured breakdown comparing localized domestic research achievements against international diaspora pipelines.")
+st.write("")
+
 col_break1, col_break2 = st.columns([1, 1], gap="large")
 
-# Dynamic helper function to generate requested pointers: Field - Count - Years
+# Dynamic metric printer engine
 def generate_metric_pointers(subset_df):
     pointers = []
-    # Loop over fields sorted systematically
     for field, group in subset_df.groupby('Field'):
         count = len(group)
         years_list = group['Year'].sort_values().astype(str).tolist()
         years_joined = ", ".join(years_list)
         icon = group['Icon'].iloc[0]
-        flag = group['Flag'].iloc[0]
-        pointers.append(f"• **{icon} {field}** — {count} Laureate(s) — *({years_joined})*")
-    return pointers
+        pointers.append(f"<li style='margin-bottom: 12px; font-size:1.05rem;'>{icon} <b>{field}</b> — {count} Laureate(s) <span style='color:#64748B;'>({years_joined})</span></li>")
+    return "".join(pointers)
 
 with col_break1:
-    st.subheader("🏡 Card 5: Domestic Cohort Profile")
-    st.write("Systematic listing of winners holding active Indian passports at award presentation:")
+    st.markdown("### 🏡 Card 5: The Domestic Indian Cohort")
+    st.markdown("<div style='background-color: #CCEBC5; height: 4px; margin-bottom: 15px;'></div>", unsafe_allow_html=True)
     
     citizen_df = df[df['Category'] == 'Citizen']
-    citizen_pointers = generate_metric_pointers(citizen_df)
+    citizen_html = generate_metric_pointers(citizen_df)
+    st.markdown(f"<ul style='list-style-type:none; padding-left:0;'>{citizen_html}</ul>", unsafe_allow_html=True)
     
-    # Display the processed data points
-    for line in citizen_pointers:
-        st.markdown(line)
-        
-    st.markdown("---")
+    st.markdown("")
     st.caption(
-        "**Context:** Domestic breakthroughs are anchored entirely in human development, "
-        "predominantly representing foundational Literature, peace initiatives, and early physical research "
-        "conducted directly inside Indian soil."
+        "**Intent & Commentary:** The domestic cohort is anchored primarily in humanitarian, social, and "
+        "foundational physical fields. These breakthroughs reflect solutions forged directly within the socioeconomic "
+        "realities of the subcontinent, emphasizing cultural enrichment, welfare economics, and baseline physical discoveries."
     )
 
 with col_break2:
-    st.subheader("🗺️ Card 6: Global Diaspora Profile")
-    st.write("Systematic listing of winners born on the subcontinent operating under foreign jurisdictions:")
+    st.markdown("### 🗺️ Card 6: The Global Diaspora Pipeline")
+    st.markdown("<div style='background-color: #FBB4AE; height: 4px; margin-bottom: 15px;'></div>", unsafe_allow_html=True)
     
     origin_df = df[df['Category'] == 'Origin']
-    origin_pointers = generate_metric_pointers(origin_df)
+    origin_html = generate_metric_pointers(origin_df)
+    st.markdown(f"<ul style='list-style-type:none; padding-left:0;'>{origin_html}</ul>", unsafe_allow_html=True)
     
-    # Display the processed data points
-    for line in origin_pointers:
-        st.markdown(line)
-        
-    st.markdown("---")
+    st.markdown("")
     st.caption(
-        "**Context:** The global diaspora trends heavily toward specialized hard sciences "
-        "(*Medicine 🧬, Chemistry 🧪, Physics 🔬*) requiring capital-intensive global laboratory infrastructure "
-        "located in the US and UK."
+        "**Intent & Commentary:** The diaspora data trends completely toward capital-intensive hard sciences "
+        "(*Medicine 🧬, Chemistry 🧪, Astrophysics 🔬*). These breakthroughs systematically showcase the intersection "
+        "of Indian foundational talent with advanced Western research infrastructures (primarily US & UK systems) that provide multi-million dollar laboratory environments."
     )

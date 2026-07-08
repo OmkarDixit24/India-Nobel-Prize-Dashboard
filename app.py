@@ -117,7 +117,7 @@ with chart_col1:
         height=140, 
         margin=dict(l=10, r=30, t=5, b=5)
     )
-    fig1.update_traces(textposition='outside', font=dict(size=14, currentcolor='black'))
+    fig1.update_traces(textposition='outside', textfont=dict(size=14, color='black'))
     st.plotly_chart(fig1, use_container_width=True, config={'displayModeBar': False})
 
 # Section 1 Gist Callout Box

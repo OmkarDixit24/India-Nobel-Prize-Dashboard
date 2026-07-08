@@ -136,6 +136,9 @@ st.write("")
 # ====================================================================
 # SECTION 2: THE MAIN HISTORICAL MATRIX (FULL SCREEN ROOM TO BREATHE)
 # ====================================================================
+# ====================================================================
+# SECTION 2: THE MAIN HISTORICAL MATRIX (FULL SCREEN ROOM TO BREATHE)
+# ====================================================================
 st.header("🗓️ The Chronological & Academic Field Matrix")
 st.markdown(
     "A wide-canvas timeline positioning every award. The horizontal layout provides full "
@@ -157,20 +160,22 @@ fig2.update_traces(
     textfont=dict(size=32), # Bold expansive icons
     hovertemplate="<b>%{hovertext}</b><br>📅 Award Year: %{customdata[2]}<br>🏛️ Field: %{x}<br>📍 Status: %{customdata[0]} %{customdata[1]}<extra></extra>"
 )
+
+# FIXED: Removed 'bold=True' and structured grid parameters into clean axis dictionaries
 fig2.update_layout(
     plot_bgcolor='#F8FAFC', # High-end off-white slate background
-    xaxis_showgrid=True,
-    xaxis_gridcolor='#E2E8F0',
-    yaxis_showgrid=True,
-    yaxis_gridcolor='#E2E8F0',
+    xaxis=dict(
+        showgrid=True,
+        gridcolor='#E2E8F0',
+        tickfont=dict(size=14, color='#1E293B'),
+        side='top' # Place labels at the top like premium data dashboards
+    ),
     yaxis=dict(
+        showgrid=True,
+        gridcolor='#E2E8F0',
         tickvals=[1913, 1930, 1968, 1979, 1983, 1998, 2001, 2009, 2014, 2019],
         tickfont=dict(size=13, color='#475569'),
         range=[1900, 2030] # Expansive bounds so markers don't clip the edges
-    ),
-    xaxis=dict(
-        tickfont=dict(size=14, color='#1E293B', bold=True),
-        side='top' # Place labels at the top like premium data dashboards
     ),
     height=480,
     margin=dict(l=60, r=60, t=40, b=20)
